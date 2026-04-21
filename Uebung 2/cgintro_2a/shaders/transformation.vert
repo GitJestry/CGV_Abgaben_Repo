@@ -16,7 +16,7 @@ void main() {
     float tx = kreisRadius * cos(uTime);
     float ty = kreisRadius * sin(uTime);
 
-    // zoomintervall: [0,5, 0,75]
+    // zoomintervall: [0,25, 0,75]
     float zoomSpeed = 3.0;
     float scaling = 0.5 + 0.25 * sin(zoomSpeed * uTime);
 

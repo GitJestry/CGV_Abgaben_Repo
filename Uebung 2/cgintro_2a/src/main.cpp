@@ -10,6 +10,14 @@
 constexpr float OUTER = 0.5f; // length
 constexpr float INNER = OUTER / 3.0f; // thickness
 
+// For Explanation:
+// Outer and Inner are defined from the center point of a cross
+// Outer means the length outward from the center
+// Inner means the size of the square in the middle
+// thus the edges are -Outer (left) +Outer (right)
+// and the edges of the inner sqaure are half of its square length
+// thus -INNER/2 and INNER/2
+
 // ------- Index Vertex lAYOUT --------
 
 //      0     1           row 0
