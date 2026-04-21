@@ -18,6 +18,6 @@ FetchContent_MakeAvailable(framework)
 
 # Add executable
 add_executable(${PROJECT_NAME} ${SRC})
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
 target_include_directories(${PROJECT_NAME} PRIVATE src)
 target_link_libraries(${PROJECT_NAME} PRIVATE framework)
