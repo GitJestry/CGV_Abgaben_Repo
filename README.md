@@ -26,15 +26,18 @@ Dieser hilft der IDE dabei,
 
 Der inhalt sieht wie folgt aus:
 
-```{
+```
+{
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
     "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json"
-}````
+}
+````
+
 
 Zusätzlich sollte in jeder `CMakeLists.txt` folgende Zeile enthalten sein:
 
-```cmake
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+```
+cmake set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ````
 
 Diese Option erzeugt eine `compile_commands.json`, die von VS Code und anderen Tools verwendet werden kann, um Include-Pfade, Compiler-Flags und Projektstruktur korrekt zu erkennen.
