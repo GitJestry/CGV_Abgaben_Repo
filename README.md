@@ -17,12 +17,19 @@ Der Grund dafür ist die Plattformkompatibilität:
 
 ### VS Code / IntelliSense
 
-Für jeden Programmordner sollte der passende **`.vscode`-Settings-Ordner** mitgeführt werden.  
+Für jeden Programmordner sollte der passende **`.vscode`-Settings-Ordner** mitgeführt werden, genau dann wenn VS Code verwendet wird.  
 Dieser hilft der IDE dabei,
 
 - Include-Pfade korrekt aufzulösen,
 - Framework-Headers zu finden,
 - falsche IntelliSense-Fehlermeldungen zu reduzieren.
+
+Der inhalt sieht wie folgt aus:
+
+```{
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/compile_commands.json"
+}````
 
 Zusätzlich sollte in jeder `CMakeLists.txt` folgende Zeile enthalten sein:
 
