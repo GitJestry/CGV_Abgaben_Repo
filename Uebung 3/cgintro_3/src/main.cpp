@@ -68,10 +68,17 @@ struct MainApp : public App {
         mat4 worldToClip = camera.projectionMatrix * camera.viewMatrix;
     
         mat4 sun = scale(vec3(SUN_RADIUS));
-    
-        mat4 earth = mat4(1.0f); // TODO: Scale to the right size, translate to the right distance and rotate once every year around the sun
         mat4 moon = mat4(1.0f); // TODO: Scale to the right size, translate to the right distance and rotate once every month around the earth
-    
+        mat4 earth = mat4(1.0f);
+
+        earth = glm::rotate(earth, year, glm::vec3(1,0,0));
+        earth = glm::translate(earth, glm::vec3(SUN_EARTH_DISTANCE,0.f,SUN_EARTH_DISTANCE));
+        earth = glm::scale(earth, vec3(SUN_EARTH_RATIO)); // TODO: Scale to the right size, translate to the right distance and rotate once every year around the sun
+        moon =  glm::rotate(moon, month, glm::vec3(1,0,0));
+        moon =  glm::translate(moon, glm::vec3(0.f,0.f,EARTH_MOON_DISTANCE));
+        moon =  glm::scale(moon, vec3(EARTH_MOON_RATIO)); // TODO: Scale to the right size, translate to the right distance and rotate once every year around the sun
+        // make moon dependant on earth
+        moon = earth * moon;
         program.use();
         program.set("uColor", SUN_COLOR);
         program.set("uLocalToWorld", sun);
@@ -79,6 +86,19 @@ struct MainApp : public App {
         program.set("uEnableLighting", false);
         mesh.draw();
         // TODO: Draw the earth and moon
+        program.use();
+        program.set("uColor", EARTH_COLOR);
+        program.set("uLocalToWorld", earth);
+        program.set("uLocalToClip", worldToClip * earth);
+        program.set("uEnableLighting", false);
+        mesh.draw();
+
+        program.use();
+        program.set("uColor", MOON_COLOR);
+        program.set("uLocalToWorld", moon);
+        program.set("uLocalToClip", worldToClip * moon);
+        program.set("uEnableLighting", false);
+        mesh.draw();
     }
 };
 
