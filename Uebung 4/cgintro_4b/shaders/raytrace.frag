@@ -23,10 +23,80 @@ vec3 proceduralSun(vec3 rayDir) {
     return pow(max(0.0, dot(rayDir, uLightDir)), 1000) * uLightColor;
 }
 
+vec3 calcCrossProd(vec3 a, vec3 b) {
+    return vec3(
+        a.y * b.z - a.z * b.y,
+        a.z * b.x - a.x * b.z,
+        a.x * b.y - a.y * b.x
+    );
+}
+
+// Spatprodukt:
+// det(a | b | c) = (a x b) · c
+float spat(vec3 a, vec3 b, vec3 c) {
+    return dot(calcCrossProd(a, b), c);
+}
 
 vec3 intersectTriangle(vec3 rayOrigin, vec3 rayDir, vec3 v0, vec3 v1, vec3 v2) {
-    // TODO: Implement Ray-Triangle intersection
-    return vec3(INF); // return vec3(u, v, t);
+    // Aus der Vorlesung:
+    // Dreieck = c + u * e1 + v * e2
+    // Dabei ist c ein Eckpunkt des Dreiecks.
+    // e1 und e2 spannen die Dreiecksebene auf.
+    vec3 c  = v0;
+    vec3 e1 = v1 - v0;
+    vec3 e2 = v2 - v0;
+
+    // Die Normale der Dreiecksebene entsteht durch das Kreuzprodukt.
+    vec3 n = calcCrossProd(e1, e2);
+
+    // Falls n nahezu Länge 0 hat, ist das Dreieck degeneriert.
+    // Dann liegen die drei Punkte z.B. auf einer Linie und bilden keine gültige Fläche.
+    float detBase = spat(e1, e2, n);
+    if (abs(detBase) < 1e-6) {
+        return vec3(INF);
+    }
+
+    // Strahl in Ebene eingesetzt aus der Vorlesung
+    // dot(n, rayOrigin + t * rayDir - c) = 0
+    // t = dot(n, c - rayOrigin) / dot(n, rayDir)
+    float denom = dot(n, rayDir);
+
+    // Wenn denom fast 0 ist, ist der Strahl parallel zur Dreiecksebene.
+    // Dann gibt es für Raytracing keinen eindeutigen gültigen Treffer.
+    if (abs(denom) < 1e-6) {
+        return vec3(INF);
+    }
+
+    float t = dot(n, c - rayOrigin) / denom;
+
+    // t < 0 bedeutet: Der Ebenenschnitt liegt hinter dem Strahlursprung.
+    // Für den Kamerastrahl ist dieser Treffer nicht sichtbar.
+    if (t < 0.0) {
+        return vec3(INF);
+    }
+
+    // Schnittpunkt des Strahls mit der unendlich großen Ebene.
+    vec3 hit = rayOrigin + t * rayDir;
+
+    // Für die Dreieckskoordinaten betrachten wir den Treffer relativ zum Aufpunkt c:
+    // hit = c + u * e1 + v * e2
+    // p = hit - c = u * e1 + v * e2
+    vec3 p = hit - c;
+
+    // Aus der Uebungsaufgabe:
+    // u = det(p | e2 | n) / det(e1 | e2 | n)
+    // v = det(e1 | p | n) / det(e1 | e2 | n)
+    float u = spat(p,  e2, n) / detBase;
+    float v = spat(e1, p,  n) / detBase;
+
+    // Inside-Test:
+    if (u < 0.0 || v < 0.0 || u + v > 1.0) {
+        return vec3(INF);
+    }
+
+    // u und v können später für baryzentrische Interpolation genutzt werden.
+    // t ist die Tiefe entlang des Strahls und wird verwendet, um den nächsten Treffer zu finden.
+    return vec3(u, v, t);
 }
 
 void main() {
