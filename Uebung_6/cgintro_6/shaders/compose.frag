@@ -21,11 +21,16 @@ void main() {
     vec3 color = texture(tColor, texCoord).rgb;
     vec3 normal = texture(tNormal, texCoord).xyz;
     float depth = texture(tDepth, texCoord).r;
-    // TODO: Use texCoord or gl_FragCoord and depth to calculate the fragment position in clip space
-    vec4 clipPos = vec4(0.0, 0.0, 0.0, 1.0);
-    // TODO: Obtain the world space postion of the fragment
-    vec4 worldPosition = vec4(0.0, 0.0, 0.0, 1.0);
-    // NOTE: Divide worldPosition by w to get the correct position in world space
+
+    vec3 ndcPos = vec3(
+        texCoord * 2.0 - 1.0,
+        depth * 2.0 - 1.0
+    );
+
+    vec4 clipPos = vec4(ndcPos, 1.0);
+
+    vec4 worldPosition = uClipToWorld * clipPos;
+    worldPosition /= worldPosition.w;
 
     vec3 lighting = vec3(0.0);
     if (depth < 1.0) {
@@ -33,7 +38,6 @@ void main() {
             vec3 lightPos = uLightPositions[i];
             vec3 lightColor = uLightColors[i];
 
-            // Calculate lighting
             vec3 lightDir = lightPos - worldPosition.xyz;
             float lightDist = length(lightDir);
             lightDir /= lightDist; // Normalize light direction
