@@ -1,0 +1,2 @@
+/usr/bin/ar qc libstb.a CMakeFiles/stb.dir/__/__/__/__/external/stb/stb.cpp.o
+/usr/bin/ranlib libstb.a

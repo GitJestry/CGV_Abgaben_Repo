@@ -1,0 +1,12 @@
+# This is a generated file and its contents are an internal implementation detail.
+# The download step will be re-executed if anything in this file changes.
+# No other meaning or use of this file is supported.
+
+method=url
+command=/opt/homebrew/bin/cmake;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;/Users/Jestry/Documents/Dokumente – Jestry Mac/6. Semester/CGV/CGV REPO/CGV_Abgaben_Repo/Uebung_6/cgintro_6/build/CMakeFiles/fc-stamp/glfw3/download-glfw3.cmake;COMMAND;/opt/homebrew/bin/cmake;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;/Users/Jestry/Documents/Dokumente – Jestry Mac/6. Semester/CGV/CGV REPO/CGV_Abgaben_Repo/Uebung_6/cgintro_6/build/CMakeFiles/fc-stamp/glfw3/verify-glfw3.cmake;COMMAND;/opt/homebrew/bin/cmake;-DCMAKE_MESSAGE_LOG_LEVEL=VERBOSE;-P;/Users/Jestry/Documents/Dokumente – Jestry Mac/6. Semester/CGV/CGV REPO/CGV_Abgaben_Repo/Uebung_6/cgintro_6/build/CMakeFiles/fc-stamp/glfw3/extract-glfw3.cmake
+source_dir=/Users/Jestry/Documents/Dokumente – Jestry Mac/6. Semester/CGV/CGV REPO/CGV_Abgaben_Repo/Uebung_6/cgintro_6/build/_deps/glfw3-src
+work_dir=/Users/Jestry/Documents/Dokumente – Jestry Mac/6. Semester/CGV/CGV REPO/CGV_Abgaben_Repo/Uebung_6/cgintro_6/build/_deps
+url(s)=https://github.com/glfw/glfw/archive/refs/tags/3.4.tar.gz
+hash=
+      no_extract=
+

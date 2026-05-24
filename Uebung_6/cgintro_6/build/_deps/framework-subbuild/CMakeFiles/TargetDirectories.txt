@@ -1,0 +1,3 @@
+/Users/Jestry/Documents/Dokumente – Jestry Mac/6. Semester/CGV/CGV REPO/CGV_Abgaben_Repo/Uebung_6/cgintro_6/build/_deps/framework-subbuild/CMakeFiles/framework-populate.dir
+/Users/Jestry/Documents/Dokumente – Jestry Mac/6. Semester/CGV/CGV REPO/CGV_Abgaben_Repo/Uebung_6/cgintro_6/build/_deps/framework-subbuild/CMakeFiles/edit_cache.dir
+/Users/Jestry/Documents/Dokumente – Jestry Mac/6. Semester/CGV/CGV REPO/CGV_Abgaben_Repo/Uebung_6/cgintro_6/build/_deps/framework-subbuild/CMakeFiles/rebuild_cache.dir

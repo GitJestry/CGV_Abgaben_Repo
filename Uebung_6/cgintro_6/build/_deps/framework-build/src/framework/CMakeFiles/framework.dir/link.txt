@@ -1,0 +1,2 @@
+/usr/bin/ar qc libframework.a CMakeFiles/framework.dir/app.cpp.o CMakeFiles/framework.dir/camera.cpp.o CMakeFiles/framework.dir/common.cpp.o CMakeFiles/framework.dir/imguiutil.cpp.o CMakeFiles/framework.dir/mesh.cpp.o CMakeFiles/framework.dir/objparser.cpp.o CMakeFiles/framework.dir/gl/framebuffer.cpp.o CMakeFiles/framework.dir/gl/program.cpp.o CMakeFiles/framework.dir/gl/query.cpp.o CMakeFiles/framework.dir/gl/vertexarray.cpp.o
+/usr/bin/ranlib libframework.a
