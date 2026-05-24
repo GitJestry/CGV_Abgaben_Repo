@@ -19,7 +19,7 @@ out vec3 fragColor;
 
 void main() {
     vec3 color = texture(tColor, texCoord).rgb;
-    vec3 normal = normalize(texture(tNormal, texCoord).xyz);
+    vec3 normal = texture(tNormal, texCoord).xyz;
     float depth = texture(tDepth, texCoord).r;
 
     vec3 ndcPos = vec3(
@@ -33,7 +33,6 @@ void main() {
     worldPosition /= worldPosition.w;
 
     vec3 lighting = vec3(0.0);
-
     if (depth < 1.0) {
         for (int i = 0; i < uLightCount; i++) {
             vec3 lightPos = uLightPositions[i];
@@ -41,13 +40,10 @@ void main() {
 
             vec3 lightDir = lightPos - worldPosition.xyz;
             float lightDist = length(lightDir);
-            lightDir /= lightDist;
-
-            lightColor /= lightDist * lightDist;
-
+            lightDir /= lightDist; // Normalize light direction
+            lightColor /= lightDist * lightDist; // Light falloff
             lighting += max(dot(normal, lightDir), 0.0) * lightColor;
         }
-
         lighting *= uBrightness;
         fragColor = lighting * color;
     } else {
