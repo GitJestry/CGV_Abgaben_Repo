@@ -53,6 +53,12 @@ struct MainApp : App {
 
     vec3 deCasteljau(std::vector<vec3>& points, float t) {
         // TODO: Implement the de Casteljau algorithm
+        int points_len = points.size();
+        for (int i = 1;  i < points_len; i++){
+            for(int j = 0; j < (points_len-i) ; j++){
+                points[j] = points[j] * (1-t) + points[j+1] * t;
+            }
+        }
         return points[0];
     }
     
@@ -115,12 +121,21 @@ struct MainApp : App {
         if (button == Button::LEFT && action == Action::PRESS) {
             // Convert screen coordinates to clip coordinates
             vec2 screenPos = convertCursorToClipSpace();
-    
             // TODO: Raycast the clicked point
-            vec3 rayOrigin = vec3(0.0f);
-            vec3 rayDirection = vec3(0.0f);
-            float t = 0.0f;
+            int width, height;
+            float normX = screenPos.x;
+            float normY = screenPos.y;
 
+            vec3 viewDir;
+            float uAspectRatio = camera.aspectRatio;
+            float uFocalLength = camera.focalLength;
+            mat4 uCameraMatrix = camera.cameraMatrix;
+            vec3 viewSpaceDir = vec3(normX * uAspectRatio, normY, -uFocalLength);
+            //getting cursor position
+            vec3 rayOrigin = vec3(uCameraMatrix[3]);
+            vec3 rayDirection = normalize(mat3(uCameraMatrix) * viewSpaceDir);;
+            float t = -rayOrigin.y/rayDirection.y;
+            
             std::cout << "Ray origin: " << to_string(rayOrigin) << "\tRay direction: " << to_string(rayDirection) << std::endl;
     
             // Check if the intersection is within the near and far planes
